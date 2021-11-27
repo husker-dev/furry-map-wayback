@@ -157,7 +157,7 @@
         }
         async function loadFurryMapNet(){
             try{
-                let content = await getURLContent("furrymapnet_data.json");
+                let content = await getURLContent("data/furrymapnet_data.json");
                 let usersData = JSON.parse(content)['combined']['geojson']['features'];
                 for (let i = 0; i < usersData.length; i++) {
                     let user = usersData[i];
