@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>Furry Map Net - Wayback data</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -73,7 +73,15 @@
             border-radius: 0 10px 10px 0;
 
             font-size: 16px;
+            border-width:0px;
+            border:none;
+            padding-left: 5px;
+            padding-right: 5px;
         }
+        .info-block .content:focus{
+            outline: none;
+        }
+
         .info-pane .text{
             line-height: 35px;
             font-size: 16px;
@@ -155,7 +163,7 @@
 
             await f1;
             await f2;
-
+            
             let map = L.map('map').setView([51.505, 0], 3);
             L.tileLayer(`https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}${window.devicePixelRatio > 1 ? "@2x" : ""}.png`).addTo(map);
             map.addLayer(markers);
@@ -219,11 +227,11 @@
         function applyInfo(source, image, name, about, reddit, skype, deviantart, 
             discord, facebook, instagram, furaffinity, soundcloud, twitter, steam, 
             battlenet, xbox, nintendo, vk, playstation, telegram){
+            
+            document.getElementById('profile-name').innerHTML = name
 
-            document.getElementById('profile-name').innerHTML = name;
-            document.getElementById('profile-image').src = image;
-
-            setField('profile-about', about);
+            document.getElementById('profile-image').src = isSourceAvailable(image) ? image : "empty-profile.png";
+            document.getElementById('profile-about').innerHTML = (about.length == 0) ? ' ' : about;
             
             setField('profile-reddit', reddit);
             setField('profile-skype', skype);
@@ -242,13 +250,20 @@
             setField('profile-playstation', playstation);
             setField('profile-telegram', telegram);
 
-            setField('profile-source', `From ${source}`);
+            document.getElementById('profile-source').innerHTML = `From ${source}`;
+        }
+
+        function isSourceAvailable(url){
+            var request = new XMLHttpRequest();  
+            request.open('GET', url, true);
+            request.send();
+            return request.status !== 403;
         }
 
         function setField(name, value){
             if(document.getElementById(`${name}-b`) != null)
                 document.getElementById(`${name}-b`).style.display = (value) ? "flex" : "none"
-            document.getElementById(name).innerHTML = value;
+            document.getElementById(name).value = value;
         }
     </script>
 </head>
@@ -283,67 +298,67 @@
                 
                 <div class="info-block" id="profile-reddit-b">
                     <div class="title"><i class="fab fa-reddit"></i></div>
-                    <div class="content" id="profile-reddit"></div>
+                    <input type="text" class="content" id="profile-reddit"></input>
                 </div>
                 <div class="info-block" id="profile-skype-b">
                     <div class="title"><i class="fab fa-skype"></i></div>
-                    <div class="content" id="profile-skype"></div>
+                    <input type="text" class="content" id="profile-skype"></input>
                 </div>
                 <div class="info-block" id="profile-deviantart-b">
                     <div class="title"><i class="fab fa-deviantart"></i></div>
-                    <div class="content" id="profile-deviantart"></div>
+                    <input type="text" class="content" id="profile-deviantart"></input>
                 </div>
                 <div class="info-block" id="profile-discord-b">
                     <div class="title"><i class="fab fa-discord"></i></div>
-                    <div class="content" id="profile-discord"></div>
+                    <input type="text" class="content" id="profile-discord"></input>
                 </div>
                 <div class="info-block" id="profile-facebook-b">
                     <div class="title"><i class="fab fa-facebook"></i></div>
-                    <div class="content" id="profile-facebook"></div>
+                    <input type="text" class="content" id="profile-facebook"></input>
                 </div>
                 <div class="info-block" id="profile-instagram-b">
                     <div class="title"><i class="fab fa-instagram"></i></div>
-                    <div class="content" id="profile-instagram"></div>
+                    <input type="text" class="content" id="profile-instagram"></input>
                 </div>
                 <div class="info-block" id="profile-furaffinity-b">
                     <div class="title"><i class="fas fa-paw"></i></div>
-                    <div class="content" id="profile-furaffinity"></div>
+                    <input type="text" class="content" id="profile-furaffinity"></input>
                 </div>
                 <div class="info-block" id="profile-soundcloud-b">
                     <div class="title"><i class="fas fa-paw"></i></div>
-                    <div class="content" id="profile-soundcloud"></div>
+                    <input type="text" class="content" id="profile-soundcloud"></input>
                 </div>
                 <div class="info-block" id="profile-twitter-b">
                     <div class="title"><i class="fab fa-twitter"></i></div>
-                    <div class="content" id="profile-twitter"></div>
+                    <input type="text" class="content" id="profile-twitter"></input>
                 </div>
                 <div class="info-block" id="profile-steam-b">
                     <div class="title"><i class="fab fa-steam"></i></div>
-                    <div class="content" id="profile-steam"></div>
+                    <input type="text" class="content" id="profile-steam"></input>
                 </div>
                 <div class="info-block" id="profile-battlenet-b">
                     <div class="title"><i class="fab fa-battle-net"></i></div>
-                    <div class="content" id="profile-battlenet"></div>
+                    <input type="text" class="content" id="profile-battlenet"></input>
                 </div>
                 <div class="info-block" id="profile-xbox-b">
                     <div class="title"><i class="fab fa-xbox"></i></div>
-                    <div class="content" id="profile-xbox"></div>
+                    <input type="text" class="content" id="profile-xbox"></input>
                 </div>
                 <div class="info-block" id="profile-nintendo-b">
                     <div class="title"><i class="fas fa-gamepad"></i></div>
-                    <div class="content" id="profile-nintendo"></div>
+                    <input type="text" class="content" id="profile-nintendo"></input>
                 </div>
                 <div class="info-block" id="profile-vk-b">
                     <div class="title"><i class="fab fa-vk"></i></div>
-                    <div class="content" id="profile-vk"></div>
+                    <input type="text" class="content" id="profile-vk"></input>
                 </div>
                 <div class="info-block" id="profile-playstation-b">
                     <div class="title"><i class="fab fa-playstation"></i></div>
-                    <div class="content" id="profile-playstation"></div>
+                    <input type="text" class="content" id="profile-playstation"></input>
                 </div>
                 <div class="info-block" id="profile-telegram-b">
                     <div class="title"><i class="fab fa-telegram"></i></div>
-                    <div class="content" id="profile-telegram"></div>
+                    <input type="text" class="content" id="profile-telegram"></input>
                 </div>
                 
                 <div class="text" style="color: rgba(0, 0, 0, 0.5)" id="profile-source">Here</div>
