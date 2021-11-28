@@ -149,14 +149,11 @@
         async function onLoad() {
             markers = L.markerClusterGroup();
             
-            
             let f1 = loadFurryMapNet();
             let f2 = loadFurMapNet();
 
             await f1;
             await f2;
-            
-            
 
             let map = L.map('map').setView([51.505, 0], 3);
             L.tileLayer(`https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}${window.devicePixelRatio > 1 ? "@2x" : ""}.png`).addTo(map);
@@ -250,7 +247,6 @@
         function setField(name, value){
             if(document.getElementById(`${name}-b`) != null)
                 document.getElementById(`${name}-b`).style.display = (value) ? "flex" : "none"
-            else console.log(name);
             document.getElementById(name).innerHTML = value;
         }
     </script>
